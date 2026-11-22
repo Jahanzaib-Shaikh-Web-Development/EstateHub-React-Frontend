@@ -37,7 +37,6 @@ export default function Footer() {
               <li><FaPhoneAlt /> +92 21 111 378 428</li>
               <li><FaEnvelope /> info@estatehub.pk</li>
             </ul>
-            <Link to="/login" className="btn btn-outline-light btn-sm">Sign In</Link>
           </div>
         </div>
       </div>
