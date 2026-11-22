@@ -21,7 +21,7 @@ export default function About() {
           </div>
         </div>
       </section>
-      <section className="section section-white">
+      <section className="section">
         <div className="container">
           <div className="row g-4 mb-5">
             {[['2,500+', 'Properties Listed'], ['1,200+', 'Happy Clients'], ['50+', 'Expert Agents'], ['6', 'Major Cities']].map(([n, l]) => <div className="col-6 col-md-3" key={l}><div className="stat"><h2>{n}</h2><p className="text-muted">{l}</p></div></div>)}

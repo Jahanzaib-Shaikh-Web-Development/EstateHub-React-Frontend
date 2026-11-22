@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -18,40 +18,60 @@ import FAQ from './pages/FAQ'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
+import AIChat from './components/AIChat'
 
 const AUTH = ['/register', '/login', '/forgot-password']
 
 export default function App() {
   const { pathname } = useLocation()
+  const ambientRef = useRef(null)
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+
+    const moveGlow = (event) => {
+      if (event.pointerType !== 'mouse' || !ambientRef.current) return
+      ambientRef.current.style.setProperty('--pointer-x', `${event.clientX}px`)
+      ambientRef.current.style.setProperty('--pointer-y', `${event.clientY}px`)
+    }
+
+    window.addEventListener('pointermove', moveGlow, { passive: true })
+    return () => window.removeEventListener('pointermove', moveGlow)
+  }, [])
   const isAuth = AUTH.includes(pathname)
   return (
     <>
-      {!isAuth && <Navbar />}
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/buy" element={<BuyProperties />} />
-          <Route path="/rent" element={<RentProperties />} />
-          <Route path="/sell" element={<SellProperty />} />
-          <Route path="/properties" element={<PropertyListings />} />
-          <Route path="/property/:id" element={<PropertyDetails />} />
-          <Route path="/search" element={<SearchProperties />} />
-          <Route path="/agents" element={<Agents />} />
-          <Route path="/agent/:id" element={<AgentProfile />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
-      </main>
-      {!isAuth && <Footer />}
+      <div ref={ambientRef} className="ambient-background" aria-hidden="true">
+        <div className="ambient-pointer-glow" />
+      </div>
+      <div className="app-shell">
+        {!isAuth && <Navbar />}
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/buy" element={<BuyProperties />} />
+            <Route path="/rent" element={<RentProperties />} />
+            <Route path="/sell" element={<SellProperty />} />
+            <Route path="/properties" element={<PropertyListings />} />
+            <Route path="/property/:id" element={<PropertyDetails />} />
+            <Route path="/search" element={<SearchProperties />} />
+            <Route path="/agents" element={<Agents />} />
+            <Route path="/agent/:id" element={<AgentProfile />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </main>
+        {!isAuth && <Footer />}
+      </div>
+      <AIChat />
     </>
   )
 }

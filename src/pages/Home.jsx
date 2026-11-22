@@ -44,7 +44,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section-white">
+      <section className="section">
         <div className="container">
           <div className="section-title"><h2>Browse by Category</h2><p>Whatever you’re looking for, we have it</p></div>
           <div className="row g-3">
@@ -69,7 +69,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section-white">
+      <section className="section">
         <div className="container">
           <div className="section-title"><h2>Why Choose EstateHub?</h2><p>We make real estate simple, safe and rewarding</p></div>
           <div className="row g-4">{why.map(([I, t, d]) => <div key={t} className="col-sm-6 col-lg-3"><div className="why-card"><div className="wi"><I /></div><h5>{t}</h5><p className="text-muted small mb-0">{d}</p></div></div>)}</div>
@@ -83,7 +83,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section-white">
+      <section className="section">
         <div className="container">
           <div className="section-title"><h2>Customer Testimonials</h2><p>What our clients say about us</p></div>
           <div className="row g-4">{testimonials.map((t) => <div key={t.id} className="col-md-4"><TestimonialCard t={t} /></div>)}</div>
